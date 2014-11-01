@@ -12,32 +12,32 @@ Just use Gulp and the plugins.
 
 ```javascript
 var gulp = require('gulp');
-var plugin1 = require('gulp-plugin1');
-var plugin2 = require('gulp-plugin2');
+var plugin1usingVinylAst = require('gulp-plugin1-using-vinyl-ast');
+var plugin2usingVinylAst = require('gulp-plugin2-using-vinyl-ast');
 var plugin3 = require('gulp-plugin3');
 
 gulp.task('javascript', function() {
   gulp.src('src/**/*.js')
-    .pipe(plugin1())
-    .pipe(plugin2())
+    .pipe(plugin1usingVinylAst())
+    .pipe(plugin2usingVinylAst())
     .pipe(plugin3())
     .pipe(gulp.dest('dist'));
 });
 ```
 
-If plugin1 and plugin2 support vinyl-ast,
+If plugin1 and plugin2 support vinyl-ast,  
 The source is parsed once and generated once internally.
 
-Even if plugin3 doesn't know such a vinyl-ast, no problem.
+Even if plugin3 doesn't know about vinyl-ast, no problem.  
 vinyl-ast generate sources as a `file#contents` property for normal gulp plugins.
 
 ## VS.
 
-[aster](http://asterjs.github.io/aster/) is an AST-based code builder.
+[aster](http://asterjs.github.io/aster/) is an AST-based code builder.  
 To use it with Gulp, additional confugiration is needed.
 
-vinyl-ast is designed for working with Gulp.
-Users don't have to concerned about such a AST.
+vinyl-ast is designed for working with Gulp.  
+Users don't have to concerned about such an AST.  
 Only plugin developers need to do.
 
 ## For Gulp plugin developer
@@ -68,7 +68,7 @@ module.exports = function(options) {
 };
 ```
 
-## Featurs
+## Features
 
 ### Select AST parser
 
