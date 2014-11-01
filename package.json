@@ -1,10 +1,13 @@
 {
   "name": "vinyl-ast",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A subclass of vinyl file for Mozilla Parser AST",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
+  },
+  "directories": {
+    "test": "test/"
   },
   "repository": {
     "type": "git",
@@ -32,8 +35,5 @@
     "intelli-espower-loader": "^0.4.0",
     "mocha": "^2.0.1",
     "power-assert": "^0.9.1"
-  },
-  "directories": {
-    "test": "test/"
   }
 }
