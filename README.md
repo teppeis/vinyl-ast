@@ -25,7 +25,7 @@ gulp.task('javascript', function() {
 });
 ```
 
-If plugin1 and plugin2 support vinyl-ast,  
+Because plugin1 and plugin2 support vinyl-ast,  
 The source is parsed once and generated once internally.
 
 Even if plugin3 doesn't know about vinyl-ast, no problem.  
