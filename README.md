@@ -1,7 +1,7 @@
 vinyl-ast
 ====
 
-> Parse-once and generate-once AST tool chain for Gulp.
+> Parse-once and generate-once AST tool bridge for Gulp plugins.
 
 Inspired by [gulp-sourcemaps](https://github.com/floridoo/gulp-sourcemaps).
 Just PoC now.
