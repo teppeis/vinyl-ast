@@ -1,0 +1,39 @@
+{
+  "name": "vinyl-ast",
+  "version": "0.0.1",
+  "description": "A subclass of vinyl file for Mozilla Parser AST",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/teppeis/vinyl-ast"
+  },
+  "keywords": [
+    "vinyl",
+    "gulp",
+    "ast",
+    "esprima"
+  ],
+  "author": "teppeis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/teppeis/vinyl-ast/issues"
+  },
+  "homepage": "https://github.com/teppeis/vinyl-ast",
+  "dependencies": {
+    "escodegen": "^1.4.1",
+    "vinyl": "^0.4.3"
+  },
+  "devDependencies": {
+    "espower-loader": "^0.9.1",
+    "esprima": "^1.2.2",
+    "intelli-espower-loader": "^0.4.0",
+    "mocha": "^2.0.1",
+    "power-assert": "^0.9.1"
+  },
+  "directories": {
+    "test": "test/"
+  }
+}
