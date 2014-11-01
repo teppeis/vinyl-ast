@@ -36,11 +36,13 @@ vinyl-ast generate sources as a `file#contents` property for normal gulp plugins
 [aster](http://asterjs.github.io/aster/) is an AST-based code builder.  
 To use it with Gulp, additional confugiration is needed.
 
-vinyl-ast is designed for working with Gulp.  
-Users don't have to concerned about such an AST.  
+vinyl-ast is primary designed for working with Gulp.  
+Gulp users don't have to concern about such an AST.  
 Only plugin developers need to do.
 
 ## For Gulp plugin developer
+
+Check `file.ast` property, use it and set your result ast to it.
 
 ```javascript
 var through = require('through2');
@@ -62,7 +64,7 @@ module.exports = function(options) {
       result = myTransformFromSource(file.contents, options);
     }
 
-    // set result AST to #ast
+    // set result AST to file.ast
     file.ast = result.ast
 
     this.push(file);
