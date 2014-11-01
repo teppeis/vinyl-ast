@@ -50,13 +50,18 @@ var myTransform = require('myTransform');
 module.exports = function(options) {
 
   function transform(file, encoding, callback) {
-    // convert normal vinyl file to VinylAst
-    if (!file.ast) {
+    var resutl;
+
+    if (file.ast) {
+      // use parsed ast!
+      result = myTransformFromAst(file.ast, options);
+    } else {
+      // convert normal vinyl file to VinylAst
       file = VinylAst.from(file);
+      // do normal plugin logic
+      result = myTransformFromSource(file.contents, options);
     }
 
-    // do normal plugin logic
-    var result = myTransform(file.contents, options);
     // set result AST to #ast
     file.ast = result.ast
 
