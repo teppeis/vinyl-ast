@@ -1,4 +1,4 @@
-vinyl-ast
+vinyl-ast [![NPM version][npm-image]][npm-url] [![build status][travis-image]][travis-url] [![Dependency Status][deps-image]][deps-url]
 ====
 
 > Parse-once and generate-once AST tool bridge for Gulp plugins.
@@ -94,3 +94,10 @@ TBD
 ## License
 
 MIT License: Teppei Sato <teppeis@gmail.com>
+
+[npm-image]: https://img.shields.io/npm/v/vinyl-ast.svg
+[npm-url]: https://npmjs.org/package/vinyl-ast
+[travis-image]: https://travis-ci.org/teppeis/vinyl-ast.svg?branch=master
+[travis-url]: https://travis-ci.org/teppeis/vinyl-ast
+[deps-image]: https://david-dm.org/teppeis/vinyl-ast.svg
+[deps-url]: https://david-dm.org/teppeis/vinyl-ast
