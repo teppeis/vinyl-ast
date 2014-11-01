@@ -1,6 +1,6 @@
 {
   "name": "vinyl-ast",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Parse-once and generate-once AST tool bridge for Gulp plugins",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,11 @@
     "ast",
     "esprima"
   ],
-  "author": "teppeis",
+  "author": {
+    "name": "Teppei Sato",
+    "email": "teppeis@gmail.com",
+    "url": "https://github.com/teppeis"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/teppeis/vinyl-ast/issues"
