@@ -1,7 +1,7 @@
 {
   "name": "vinyl-ast",
   "version": "0.1.0",
-  "description": "A subclass of vinyl file for Mozilla Parser AST",
+  "description": "Parse-once and generate-once AST tool bridge for Gulp plugins",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
