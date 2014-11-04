@@ -5,8 +5,6 @@ var escodegen = require('escodegen');
 
 // Original getter/setter methods of #contents
 var vinylContents = Object.getOwnPropertyDescriptor(Vinyl.prototype, 'contents');
-// Original clone method
-var vinylClone = Vinyl.prototype.clone;
 
 /**
  * @param {Vinyl} vinyl Original vinyl file
@@ -47,8 +45,32 @@ function vinylAstApply(vinyl) {
         }
     });
 
+    vinyl.isBuffer = function() {
+        if (this.ast) {
+            return true;
+        } else {
+            return Vinyl.prototype.isBuffer.call(this);
+        }
+    };
+
+    vinyl.isStream = function() {
+        if (this.ast) {
+            return false;
+        } else {
+            return Vinyl.prototype.isStream.call(this);
+        }
+    };
+
+    vinyl.isNull = function() {
+        if (this.ast) {
+            return false;
+        } else {
+            return Vinyl.prototype.isNull.call(this);
+        }
+    };
+
     vinyl.clone = function(opt) {
-        var cloned = vinylClone.call(this, opt);
+        var cloned = Vinyl.prototype.clone.call(this, opt);
         vinylAstApply(cloned);
         return cloned;
     };
