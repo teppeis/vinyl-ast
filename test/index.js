@@ -2,19 +2,26 @@
 
 var assert = require('power-assert');
 var esprima = require('esprima');
+var escodegen = require('escodegen');
+var sinon = require('sinon');
 var Vinyl = require('vinyl');
 
 var vinylAst = require('../index');
 
 describe('vinylAst', function() {
-    var sut, buf;
+    var sut, buf, sandbox;
     beforeEach(function() {
+        sandbox = sinon.sandbox.create();
         sut = new Vinyl();
         buf = new Buffer('foo');
         sut.contents = buf;
         sut.customProp = 'bar';
 
         vinylAst.apply(sut);
+    });
+
+    afterEach(function() {
+        sandbox.restore();
     });
 
     describe('#apply()', function() {
@@ -24,8 +31,6 @@ describe('vinylAst', function() {
             assert(sut.contents === buf);
             assert(sut.customProp === 'bar');
         });
-
-        it('#clone');
 
         it('should set null to #ast', function() {
             assert(sut.ast === null);
@@ -52,8 +57,43 @@ describe('vinylAst', function() {
         });
 
         describe('#contents', function() {
+
             it('should be generated astSource buffer', function() {
                 assert(sut.contents instanceof Buffer);
+                assert(sut.contents.toString() === src);
+            });
+
+            it('should return source for latest AST after #ast is modified', function() {
+                assert(sut.contents.toString() === src);
+
+                var newSrc = "var foo = 'updated';";
+                sut.ast = esprima.parse(newSrc);
+                assert(sut.contents.toString() === newSrc);
+            });
+
+            it('should call escodegen only once even if it is referenced many times', function() {
+                sandbox.spy(escodegen, 'generate');
+
+                assert(escodegen.generate.callCount === 0);
+                assert(sut.isBuffer());
+                assert(escodegen.generate.callCount === 1);
+                assert(sut.isBuffer());
+                assert(escodegen.generate.callCount === 1);
+                assert(sut.contents.toString() === src);
+                assert(escodegen.generate.callCount === 1);
+                assert(sut.contents.toString() === src);
+                assert(escodegen.generate.callCount === 1);
+            });
+
+            it('should return cached old source if #ast object property is changed', function() {
+                // This behavior is restriction on the implementation.
+                // Only Object.observe is the solution.
+
+                // cache old source
+                assert(sut.contents.toString() === src);
+                // change AST: "var foo" => "var bar"
+                sut.ast.body[0].declarations[0].id.name = 'bar';
+                // cached old source is returned
                 assert(sut.contents.toString() === src);
             });
         });
@@ -61,6 +101,31 @@ describe('vinylAst', function() {
         describe('#isBuffer()', function() {
             it('should be true for compatibility', function() {
                 assert(sut.isBuffer());
+            });
+        });
+
+        describe('#clone()', function() {
+            it('should copy all attributes including #ast', function() {
+                sut.csd = '/';
+                sut.base = '/test/';
+                sut.path = '/test/test.coffee';
+
+                var cloned = sut.clone();
+
+                assert(cloned !== sut, 'refs should be different');
+                assert(cloned.cwd === sut.cwd);
+                assert(cloned.base === sut.base);
+                assert(cloned.path === sut.path);
+                assert(cloned.ast === sut.ast);
+                assert(cloned.contents !== sut.contents, 'buffer ref should be different');
+                assert(cloned.contents.toString() === sut.contents.toString());
+            });
+
+            it('should deep copy when opt is true', function() {
+                var cloned = sut.clone(true);
+
+                assert(cloned.ast !== sut.ast, 'refs should be different');
+                assert.deepEqual(cloned.ast, sut.ast);
             });
         });
     });
