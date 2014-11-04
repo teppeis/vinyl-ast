@@ -12,6 +12,8 @@ describe('vinylAst', function() {
     var sut, buf, sandbox;
     beforeEach(function() {
         sandbox = sinon.sandbox.create();
+        sandbox.spy(escodegen, 'generate');
+
         sut = new Vinyl();
         buf = new Buffer('foo');
         sut.contents = buf;
@@ -28,6 +30,8 @@ describe('vinylAst', function() {
         it('should keep original inheritence', function() {
             assert(sut instanceof Vinyl);
             assert(sut.isBuffer());
+            assert(!sut.isStream());
+            assert(!sut.isNull());
             assert(sut.contents === buf);
             assert(sut.customProp === 'bar');
         });
@@ -82,13 +86,7 @@ describe('vinylAst', function() {
             });
 
             it('should call escodegen only once even if it is referenced many times', function() {
-                sandbox.spy(escodegen, 'generate');
-
                 assert(escodegen.generate.callCount === 0);
-                assert(sut.isBuffer());
-                assert(escodegen.generate.callCount === 1);
-                assert(sut.isBuffer());
-                assert(escodegen.generate.callCount === 1);
                 assert(sut.contents.toString() === src);
                 assert(escodegen.generate.callCount === 1);
                 assert(sut.contents.toString() === src);
@@ -111,6 +109,36 @@ describe('vinylAst', function() {
         describe('#isBuffer()', function() {
             it('should be true for compatibility', function() {
                 assert(sut.isBuffer());
+            });
+
+            it('should not call escodegen internally', function() {
+                assert(escodegen.generate.callCount === 0);
+                sut.isBuffer();
+                assert(escodegen.generate.callCount === 0);
+            });
+        });
+
+        describe('#isStream()', function() {
+            it('should be false', function() {
+                assert(!sut.isStream());
+            });
+
+            it('should not call escodegen internally', function() {
+                assert(escodegen.generate.callCount === 0);
+                sut.isStream();
+                assert(escodegen.generate.callCount === 0);
+            });
+        });
+
+        describe('#isNull()', function() {
+            it('should be false', function() {
+                assert(!sut.isNull());
+            });
+
+            it('should not call escodegen internally', function() {
+                assert(escodegen.generate.callCount === 0);
+                sut.isNull();
+                assert(escodegen.generate.callCount === 0);
             });
         });
 
