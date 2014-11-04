@@ -22,7 +22,6 @@ function vinylAstApply(vinyl) {
         },
         set: function(val) {
             this._ast = val;
-            this._astSourceBuffer = null;
             vinylContents.set.call(this, null);
         }
     });
@@ -32,10 +31,8 @@ function vinylAstApply(vinyl) {
         get: function() {
             var current = vinylContents.get.call(this);
             if (!current && this.ast) {
-                if (!this._astSourceBuffer) {
-                    this._astSourceBuffer = new Buffer(escodegen.generate(this.ast));
-                }
-                current = this._astSourceBuffer;
+                current = new Buffer(escodegen.generate(this.ast));
+                vinylContents.set.call(this, current);
             }
             return current;
         },
