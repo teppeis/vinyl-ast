@@ -35,6 +35,16 @@ describe('vinylAst', function() {
         it('should set null to #ast', function() {
             assert(sut.ast === null);
         });
+
+        it('can be called many times', function() {
+            vinylAst.apply(sut);
+
+            assert(sut instanceof Vinyl);
+            assert(sut.isBuffer());
+            assert(sut.contents === buf);
+            assert(sut.customProp === 'bar');
+            assert(sut.ast === null);
+        });
     });
 
     context('when #ast is assigned', function() {
@@ -128,8 +138,5 @@ describe('vinylAst', function() {
                 assert.deepEqual(cloned.ast, sut.ast);
             });
         });
-    });
-
-    context('apply twice', function() {
     });
 });

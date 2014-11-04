@@ -12,6 +12,11 @@ var vinylClone = Vinyl.prototype.clone;
  * @param {Vinyl} vinyl Original vinyl file
  */
 function vinylAstApply(vinyl) {
+    if (Object.getOwnPropertyDescriptor(vinyl, 'ast')) {
+        // already applied
+        return vinyl;
+    }
+
     // #ast
     Object.defineProperty(vinyl, 'ast', {
         get: function() {
