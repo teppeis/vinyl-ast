@@ -18,15 +18,18 @@ var plugin3 = require('gulp-plugin3');
 
 gulp.task('javascript', function() {
   gulp.src('src/**/*.js')
+    // parse source to AST
     .pipe(plugin1usingVinylAst())
+    // AST to AST (no conversion!)
     .pipe(plugin2usingVinylAst())
+    // generate souce from AST
     .pipe(plugin3())
     .pipe(gulp.dest('dist'));
 });
 ```
 
 Because plugin1 and plugin2 support vinyl-ast,  
-The source is parsed once and generated once internally.
+the source is parsed at the beginning of plugin1 at once and generated once internally.
 
 Even if plugin3 doesn't know about vinyl-ast, no problem.  
 vinyl-ast generate sources as a `file#contents` property for general gulp plugins.
