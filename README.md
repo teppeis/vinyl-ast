@@ -29,7 +29,7 @@ Because plugin1 and plugin2 support vinyl-ast,
 The source is parsed once and generated once internally.
 
 Even if plugin3 doesn't know about vinyl-ast, no problem.  
-vinyl-ast generate sources as a `file#contents` property for normal gulp plugins.
+vinyl-ast generate sources as a `file#contents` property for general gulp plugins.
 
 ## VS.
 
@@ -50,16 +50,15 @@ var vinylAst = require('vinyl-ast');
 var myTransform = require('myTransform');
 
 module.exports = function(options) {
-
-  function transform(file, encoding, callback) {
+  return through.obj(function(file, encoding, callback) {
     var resutl;
 
     if (file.ast) {
       // use parsed ast!
       result = myTransformFromAst(file.ast, options);
     } else {
-      // convert normal vinyl file to VinylAst
-      file = VinylAst.from(file);
+      // convert vinyl file to vinyl-ast file
+      vinylAst.apply(file);
       // do normal plugin logic
       result = myTransformFromSource(file.contents, options);
     }
@@ -70,8 +69,6 @@ module.exports = function(options) {
     this.push(file);
     callback();
   }
-
-  return through.obj(transform);
 };
 ```
 
