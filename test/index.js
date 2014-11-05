@@ -107,7 +107,7 @@ describe('vinylAst', function() {
         });
 
         describe('#isBuffer()', function() {
-            it('is true for compatibility', function() {
+            it('returns true for compatibility', function() {
                 assert(sut.isBuffer());
             });
 
@@ -119,7 +119,7 @@ describe('vinylAst', function() {
         });
 
         describe('#isStream()', function() {
-            it('is false', function() {
+            it('returns false', function() {
                 assert(!sut.isStream());
             });
 
@@ -131,7 +131,7 @@ describe('vinylAst', function() {
         });
 
         describe('#isNull()', function() {
-            it('is false', function() {
+            it('returns false', function() {
                 assert(!sut.isNull());
             });
 
