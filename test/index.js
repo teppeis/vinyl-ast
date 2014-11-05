@@ -27,7 +27,7 @@ describe('vinylAst', function() {
     });
 
     describe('#apply()', function() {
-        it('should keep original inheritence', function() {
+        it('keeps original inheritence', function() {
             assert(sut instanceof Vinyl);
             assert(sut.isBuffer());
             assert(!sut.isStream());
@@ -36,7 +36,7 @@ describe('vinylAst', function() {
             assert(sut.customProp === 'bar');
         });
 
-        it('should set null to #ast', function() {
+        it('sets null to #ast', function() {
             assert(sut.ast === null);
         });
 
@@ -60,11 +60,11 @@ describe('vinylAst', function() {
         });
 
         describe('#ast', function() {
-            it('should be assigned ast', function() {
+            it('is assigned AST', function() {
                 assert(sut.ast === ast);
             });
 
-            it('should be assigned ast after getting #contents', function() {
+            it('is not changed after getting #contents', function() {
                 assert(sut.contents instanceof Buffer);
                 assert(sut.ast === ast);
             });
@@ -72,12 +72,12 @@ describe('vinylAst', function() {
 
         describe('#contents', function() {
 
-            it('should be generated astSource buffer', function() {
+            it('is buffer of generated AST source', function() {
                 assert(sut.contents instanceof Buffer);
                 assert(sut.contents.toString() === src);
             });
 
-            it('should return source for latest AST after #ast is modified', function() {
+            it('returns updated source for latest AST after #ast is modified', function() {
                 assert(sut.contents.toString() === src);
 
                 var newSrc = "var foo = 'updated';";
@@ -85,7 +85,7 @@ describe('vinylAst', function() {
                 assert(sut.contents.toString() === newSrc);
             });
 
-            it('should call escodegen only once even if it is referenced many times', function() {
+            it('calls escodegen only once even if it is referenced many times', function() {
                 assert(escodegen.generate.callCount === 0);
                 assert(sut.contents.toString() === src);
                 assert(escodegen.generate.callCount === 1);
@@ -93,7 +93,7 @@ describe('vinylAst', function() {
                 assert(escodegen.generate.callCount === 1);
             });
 
-            it('should return cached old source if #ast object property is changed', function() {
+            it('returns cached old source if #ast object property is changed', function() {
                 // This behavior is restriction on the implementation.
                 // Only Object.observe is the solution.
 
@@ -107,11 +107,11 @@ describe('vinylAst', function() {
         });
 
         describe('#isBuffer()', function() {
-            it('should be true for compatibility', function() {
+            it('is true for compatibility', function() {
                 assert(sut.isBuffer());
             });
 
-            it('should not call escodegen internally', function() {
+            it('do not call escodegen internally', function() {
                 assert(escodegen.generate.callCount === 0);
                 sut.isBuffer();
                 assert(escodegen.generate.callCount === 0);
@@ -119,11 +119,11 @@ describe('vinylAst', function() {
         });
 
         describe('#isStream()', function() {
-            it('should be false', function() {
+            it('is false', function() {
                 assert(!sut.isStream());
             });
 
-            it('should not call escodegen internally', function() {
+            it('do not call escodegen internally', function() {
                 assert(escodegen.generate.callCount === 0);
                 sut.isStream();
                 assert(escodegen.generate.callCount === 0);
@@ -131,11 +131,11 @@ describe('vinylAst', function() {
         });
 
         describe('#isNull()', function() {
-            it('should be false', function() {
+            it('is false', function() {
                 assert(!sut.isNull());
             });
 
-            it('should not call escodegen internally', function() {
+            it('do not call escodegen internally', function() {
                 assert(escodegen.generate.callCount === 0);
                 sut.isNull();
                 assert(escodegen.generate.callCount === 0);
@@ -143,7 +143,7 @@ describe('vinylAst', function() {
         });
 
         describe('#clone()', function() {
-            it('should copy all attributes including #ast', function() {
+            it('copies all attributes including #ast', function() {
                 sut.csd = '/';
                 sut.base = '/test/';
                 sut.path = '/test/test.coffee';
@@ -159,7 +159,7 @@ describe('vinylAst', function() {
                 assert(cloned.contents.toString() === sut.contents.toString());
             });
 
-            it('should deep copy when opt is true', function() {
+            it('copies deeply when opt is true', function() {
                 var cloned = sut.clone(true);
 
                 assert(cloned.ast !== sut.ast, 'refs should be different');
