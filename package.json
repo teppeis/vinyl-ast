@@ -31,14 +31,14 @@
   "homepage": "https://github.com/teppeis/vinyl-ast",
   "dependencies": {
     "escodegen": "^1.4.1",
-    "vinyl": "^0.4.3"
+    "vinyl": "^2.0.2"
   },
   "devDependencies": {
-    "espower-loader": "^0.9.1",
-    "esprima": "^1.2.2",
-    "intelli-espower-loader": "^0.4.0",
-    "mocha": "^2.0.1",
-    "power-assert": "^0.9.1",
-    "sinon": "^1.11.1"
+    "espower-loader": "^1.2.2",
+    "esprima": "^4.0.0",
+    "intelli-espower-loader": "^1.0.1",
+    "mocha": "^3.4.2",
+    "power-assert": "^1.4.4",
+    "sinon": "^2.3.4"
   }
 }
