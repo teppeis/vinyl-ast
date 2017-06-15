@@ -1,6 +1,8 @@
 vinyl-ast [![NPM version][npm-image]][npm-url] [![build status][travis-image]][travis-url] [![Dependency Status][deps-image]][deps-url]
 ====
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/teppeis/vinyl-ast.svg)](https://greenkeeper.io/)
+
 > Parse-once and generate-once AST tool bridge for Gulp plugins.
 
 Inspired by [gulp-sourcemaps](https://github.com/floridoo/gulp-sourcemaps).
